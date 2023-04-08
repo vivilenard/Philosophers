@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initphilos.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: karllenard <karllenard@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:00:35 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/03 20:28:23 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/08 13:52:54 by karllenard       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,25 @@ int	init_philo_data(t_philo *philo, t_params *params, t_shared *shared, int i)
 
 void	set_forks(t_shared *shared, t_params *params)
 {
-	int	i;
+	int i;
 
+	shared->forks = malloc(sizeof(pthread_mutex_t *) * params->n_philos);
 	i = 0;
 	while (i < params->n_philos)
 	{
-		pthread_mutex_init(&shared->fork[i], NULL);
+		pthread_mutex_init(&shared->forks[i], NULL);
 		i++;
 	}
-	printf("%lu\n", sizeof(pthread_mutex_t));
-	//shared->forks = forks;
 }
-
-t_shared	*initshared(/* t_params *params */)
+t_shared	*initshared(t_params *params)
 {
 	t_shared	*shared;
 
 	shared = malloc(sizeof(t_shared));
+	if (!shared)
+		return (NULL);
 	pthread_mutex_init(&shared->printlock, NULL);
-	//set_forks(shared, params);
+	set_forks(shared, params);
 	return (shared);
 }
 
@@ -68,7 +68,7 @@ t_philo	*initphilos(char **argv, t_us starttime)
 	int			i;
 
 	params = initparams(argv, starttime);
-	shared = initshared(/* params */);
+	shared = initshared(params);
 	philos = malloc(params->n_philos * sizeof(t_philo));
 	if (!philos || !params)
 		return (0);

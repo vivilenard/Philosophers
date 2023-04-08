@@ -40,7 +40,7 @@ typedef struct s_params
 typedef struct s_shared
 {
 	pthread_mutex_t	printlock;
-	pthread_mutex_t	*fork;
+	pthread_mutex_t	*forks;
 }		t_shared;
 
 //initphilos
