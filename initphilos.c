@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initphilos.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: karllenard <karllenard@student.42.fr>      +#+  +:+       +#+        */
+/*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:00:35 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/08 13:52:54 by karllenard       ###   ########.fr       */
+/*   Updated: 2023/04/08 22:52:42 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ void	set_forks(t_shared *shared, t_params *params)
 		pthread_mutex_init(&shared->forks[i], NULL);
 		i++;
 	}
+	printf("forks created %d\n", i);
 }
+
 t_shared	*initshared(t_params *params)
 {
 	t_shared	*shared;
@@ -60,17 +62,13 @@ t_shared	*initshared(t_params *params)
 	return (shared);
 }
 
-t_philo	*initphilos(char **argv, t_us starttime)
+t_philo	*initphilos(t_params *params, t_shared *shared)
 {
-	t_philo		*philos;
-	t_params	*params;
-	t_shared	*shared;
-	int			i;
+	t_philo *philos;
+	int	i;
 
-	params = initparams(argv, starttime);
-	shared = initshared(params);
 	philos = malloc(params->n_philos * sizeof(t_philo));
-	if (!philos || !params)
+	if (!philos || !params || !shared)
 		return (0);
 	i = 0;
 	while (i < params->n_philos)
@@ -79,5 +77,17 @@ t_philo	*initphilos(char **argv, t_us starttime)
 		i++;
 	}
 	printf("n->philos %d, philoscreated %d, starttime %ld\n", params->n_philos, i, params->starttime);
+	return (philos);
+}
+
+t_philo	*initstructs(char **argv, t_us starttime)
+{
+	t_philo		*philos;
+	t_params	*params;
+	t_shared	*shared;
+
+	params = initparams(argv, starttime);
+	shared = initshared(params);
+	philos = initphilos(params, shared);
 	return (philos);
 }

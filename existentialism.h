@@ -44,7 +44,8 @@ typedef struct s_shared
 }		t_shared;
 
 //initphilos
-t_philo		*initphilos(char **argv, t_us starttime);
+t_philo		*initphilos(t_params *params, t_shared *shared);
+t_philo		*initstructs(char **argv, t_us starttime);
 t_params	*initparams(char **argv, t_us starttime);
 int			init_philo_data(t_philo *philo, t_params *params, t_shared *shared, int i);
 
