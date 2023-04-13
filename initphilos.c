@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:00:35 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/13 16:00:01 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/13 16:09:48 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ t_philo	**initphilos(char **argv, t_us starttime)
 		init_philo_data(philos, params, shared, i);
 		i++;
 	}
-	philos[i] = NULL;
+	philos[params->n_philos] = NULL;
+	//philos[params->n_philos - 1]->rightside = philos[0];
 	printf("n->philos %d, philoscreated %d, starttime %ld\n", params->n_philos, i, params->starttime);
 	return (philos);
 }

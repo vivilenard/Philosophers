@@ -20,9 +20,10 @@ enum philostate
 
 typedef struct s_philo
 {
-	int				id;
 	struct s_params	*params;
 	struct s_shared	*shared;
+	int				id;
+	struct s_philo *rightside;
 	int				last_eaten;
 	pthread_t		tid;
 }		t_philo;
