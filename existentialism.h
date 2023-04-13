@@ -24,12 +24,15 @@ enum philostate
 
 typedef struct s_philo
 {
-	int				id;
-	int				fork_taken;
 	struct s_params	*params;
 	struct s_shared	*shared;
+	int				id;
+	int				fork_taken;
 	int				last_eaten;
 	pthread_t		tid;
+	// pthread_mutex_t	fork;
+	// pthread_mutex_t rightfork;
+	// pthread_mutex_t leftfork;
 	struct s_philo *rightside;
 	struct s_philo *leftside;
 }		t_philo;
@@ -59,11 +62,20 @@ int			init_philo_data(t_philo *philo, t_params *params, t_shared *shared, int i)
 
 //utils
 int			ft_atoi(char *str);
-void		printstate(t_philo *philo, int x, int y);
+void		printstate(t_philo *philo, int x);
 
 //threadsarise
 void		*philo_arise(void *ptr);
 int			cometothetable(t_philo *philos);
+
+//philos
+int		eat(t_philo *philo, t_shared *shared, t_params *params);
+int		eatt(void);
+int		sleeep(t_philo *philo);
+int		think(t_philo *philo);
+//void	putdownfork(t_philo *philo, int whichfork);
+//int		takefork(t_philo *philo, t_shared *shared, int pos);
+int	takefork(pthread_mutex_t fork, t_shared *shared);
 
 //cleanandfree
 int			cleanthetable(t_philo *philos);

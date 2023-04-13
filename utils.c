@@ -26,16 +26,16 @@ int	ft_atoi(char *str)
 	return (res * s);
 }
 
-void	printstate(t_philo *philo, int x, int id)
+void	printstate(t_philo *philo, int x)
 {
 	pthread_mutex_lock(&philo->shared->printlock);
 	t_us time;
 
 	time = clock() - philo->params->starttime;
 	if (x == e_fork)
-		printf("%ld %d has taken a fork %d\n", time, philo->id, id);
+		printf("%ld %d has taken a fork\n", time, philo->id);
 	if (x == e_rightfork)
-		printf("%ld %d has taken a rightfork %d\n", time, philo->id, id);
+		printf("%ld %d has taken a rightfork\n", time, philo->id);
 	else if (x == e_eat)
 		printf("%ld %d is eating\n", time, philo->id);
 	else if (x == e_sleep)

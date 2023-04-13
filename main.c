@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:54:18 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/10 19:05:30 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/13 14:36:21 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 	printf("t_eat %d\n", philos->params->t_eat);
 	if (!cometothetable(philos))
 		return (0);
-	usleep(3000);
+	printf("hi\n");
 	cleanthetable(philos);
 	return (0);
 }

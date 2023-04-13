@@ -1,7 +1,7 @@
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 NAME = philo
-SRC = main.c initphilos.c utils.c threadsarise.c cleanandfreethetable.c time.c
+SRC = main.c initphilos.c utils.c philo.c threadsarise.c cleanandfreethetable.c time.c
 OBJ = $(SRC:.c=.o)
 ARG = 5 80 80 80
 
