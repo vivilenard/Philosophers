@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:54:18 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/03 19:11:23 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/13 15:48:06 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 int	main(int argc, char **argv)
 {
-	t_philo *philos;
+	t_philo **philos;
 	if (argc < 5 || argc > 6)
 		return (0);
 	philos = initphilos(argv, clock());
 	if (!philos)
 		return (0);
-	if (!cometothetable(philos))
+	if (!cometothetable(philos, (*philos)->params))
 		return (0);
-	cleanthetable(philos);
+	cleanthetable(*philos);
 	return (0);
 }
