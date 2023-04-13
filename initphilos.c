@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:00:35 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/13 16:09:48 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/13 19:20:54 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ int	init_philo_data(t_philo **philo, t_params *params, t_shared *shared, int i)
 	philo[i]->params = params;
 	philo[i]->shared = shared;
 	philo[i]->last_eaten = 0;
+	philo[i]->fork = shared->fork[i];
+	if (!shared->fork[i + 1])
+		philo[i]->fork_right = shared->fork[0];
+	else
+		philo[i]->fork_right = shared->fork[i + 1];
 	return (0);
 }
 
@@ -71,6 +76,7 @@ t_philo	**initphilos(char **argv, t_us starttime)
 	params = initparams(argv, starttime);
 	shared = initshared(params);
 	philos = malloc (sizeof(t_philo *) * params->n_philos);
+	philos[params->n_philos] = NULL;
 	if (!philos || !params)
 		return (0);
 	i = 0;
@@ -80,8 +86,6 @@ t_philo	**initphilos(char **argv, t_us starttime)
 		init_philo_data(philos, params, shared, i);
 		i++;
 	}
-	philos[params->n_philos] = NULL;
-	//philos[params->n_philos - 1]->rightside = philos[0];
 	printf("n->philos %d, philoscreated %d, starttime %ld\n", params->n_philos, i, params->starttime);
 	return (philos);
 }

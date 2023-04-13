@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:33:48 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/13 15:56:08 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/13 19:20:16 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,19 @@
 
 int	eat(t_philo *philo)
 {
+	pthread_mutex_lock(philo->fork);
+	pthread_mutex_lock(philo->fork_right);
 	printstate(philo, e_eat);
+	usleep(philo->params->t_eat);
+	pthread_mutex_unlock(philo->fork);
+	pthread_mutex_unlock(philo->fork_right);
 	return (1);
 }
 
 int sleeep(t_philo *philo)
 {
-	usleep(philo->params->t_sleep);
 	printstate(philo, e_sleep);
+	usleep(philo->params->t_sleep);
 	return (1);
 }
 

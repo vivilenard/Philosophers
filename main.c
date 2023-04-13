@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:54:18 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/13 16:01:10 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/13 19:14:21 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char **argv)
 		return (0);
 	if (!cometothetable(philos))
 		return (0);
+	usleep(5000);
 	cleanthetable(*philos);
 	return (0);
 }

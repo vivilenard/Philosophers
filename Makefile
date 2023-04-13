@@ -8,7 +8,7 @@ ARG = 5 80 80 80
 all: $(NAME)
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) -o philo 
-run: all
+run: re
 	./philo $(ARG)
 run1: all
 	./philo 1 800 200 200

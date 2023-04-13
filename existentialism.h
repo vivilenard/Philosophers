@@ -23,7 +23,9 @@ typedef struct s_philo
 	struct s_params	*params;
 	struct s_shared	*shared;
 	int				id;
-	struct s_philo *rightside;
+	//struct s_philo *rightside;
+	pthread_mutex_t *fork;
+	pthread_mutex_t *fork_right;
 	int				last_eaten;
 	pthread_t		tid;
 }		t_philo;
