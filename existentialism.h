@@ -26,7 +26,7 @@ typedef struct s_philo
 	//struct s_philo *rightside;
 	pthread_mutex_t *fork;
 	pthread_mutex_t *fork_right;
-	t_ms				last_eaten;
+	t_ms			last_eaten;
 	int				alive;
 	pthread_t		tid;
 }		t_philo;
@@ -44,6 +44,7 @@ typedef struct s_params
 typedef struct s_shared
 {
 	pthread_mutex_t	printlock;
+	pthread_mutex_t universal;
 	pthread_mutex_t	**fork;
 }		t_shared;
 
@@ -55,11 +56,12 @@ int			init_philo_data(t_philo **philo, t_params *params, t_shared *shared, int i
 //utils
 int			ft_atoi(char *str);
 void		printstate(t_philo *philo, int x);
+t_ms		clock();
 
 //threadsarise
 void		*philo_arise(void *ptr);
 int			cometothetable(t_philo **philos);
 
 //cleanandfree
-int			cleanthetable(t_philo **philos, t_params *params, pthread_t master);
+int			cleanthetable(t_philo **philos, t_params *params);
 #endif

@@ -6,13 +6,13 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 19:00:22 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/15 14:37:43 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/15 17:03:28 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "existentialism.h"
 
-unsigned long clock()
+t_ms clock()
 {
 	struct timeval 	time;
 	long 			usec;
