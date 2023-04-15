@@ -60,5 +60,5 @@ void		*philo_arise(void *ptr);
 int			cometothetable(t_philo **philos);
 
 //cleanandfree
-int			cleanthetable(t_philo *philos);
+int			cleanthetable(t_philo **philos, t_params *params);
 #endif

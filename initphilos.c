@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:00:35 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/13 19:20:54 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/15 13:57:37 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	set_forks(t_shared *shared, t_params *params)
 	int	i;
 
 	i = 0;
-	shared->fork = malloc(sizeof(pthread_mutex_t *));
+	shared->fork = malloc(sizeof(pthread_mutex_t *) * params->n_philos);
 	while (i < params->n_philos)
 	{
 		shared->fork[i] = malloc(sizeof(pthread_mutex_t));

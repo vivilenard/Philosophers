@@ -31,7 +31,7 @@ void	printstate(t_philo *philo, int x)
 	pthread_mutex_lock(&philo->shared->printlock);
 	t_us time;
 
-	time = clock() - philo->params->starttime;
+	time = (clock() - philo->params->starttime) / 1000;
 	if (x == e_fork)
 		printf("%ld %d has taken a fork\n", time, philo->id);
 	else if (x == e_eat)

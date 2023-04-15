@@ -6,20 +6,21 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:36:52 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/03 18:37:05 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/15 14:07:26 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "existentialism.h"
 
-int	cleanthetable(t_philo *philos)
+int	cleanthetable(t_philo **philos, t_params *params)
 {
 	int	i;
 
 	i = 0;
-	while (i < philos->params->n_philos)
+	while (i < params->n_philos)
 	{
-		pthread_join(philos[i].tid, NULL);
+		pthread_join(philos[i]->tid, NULL);
+		//printf("joined %d\n", philos[i]->id);
 		i++;
 	}
 	return (1);
