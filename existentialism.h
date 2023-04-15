@@ -57,6 +57,7 @@ int			init_philo_data(t_philo **philo, t_params *params, t_shared *shared, int i
 int			ft_atoi(char *str);
 void		printstate(t_philo *philo, int x);
 t_ms		clock();
+t_ms		timestamp(t_ms starttime);
 
 //threadsarise
 void		*philo_arise(void *ptr);
