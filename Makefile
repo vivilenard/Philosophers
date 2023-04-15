@@ -3,7 +3,7 @@ CFLAGS = -Wall -Werror -Wextra
 NAME = philo
 SRC = main.c initphilos.c utils.c threadsarise.c cleanandfreethetable.c time.c
 OBJ = $(SRC:.c=.o)
-ARG = 5 800 200 200 
+ARG = 4 800 200 200 
 
 all: $(NAME)
 $(NAME): $(OBJ)

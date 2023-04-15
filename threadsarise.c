@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:33:48 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/15 17:25:04 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/15 17:25:44 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ void	*philo_arise(void *ptr)
 	philo = (t_philo *)ptr;
 	while (1)
 	{
-		// if (philo->alive == 0)
-		// 	return (NULL);
 		eat(philo);
 		sleeep(philo);
 		think(philo);

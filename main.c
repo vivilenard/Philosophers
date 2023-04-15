@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:54:18 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/15 17:24:08 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/15 17:27:20 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	are_we_alive(t_philo **philos, t_params *params)
 			{
 				printf("clock: %lu, last meal: %lu\n", clock(), philos[i]->last_eaten);
 				printf("time since last eaten %lu\n", clock() - philos[i]->last_eaten);
-				philos[i]->alive = 0;
 				printstate(philos[i], e_die);
 				return (0);
 			}

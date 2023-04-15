@@ -27,7 +27,7 @@ typedef struct s_philo
 	pthread_mutex_t *fork;
 	pthread_mutex_t *fork_right;
 	t_ms			last_eaten;
-	int				alive;
+	//int				alive;
 	pthread_t		tid;
 }		t_philo;
 
