@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 19:00:22 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/03 19:10:23 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/15 14:37:43 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ unsigned long clock()
 	struct timeval 	time;
 	long 			usec;
 	long 			sec;
-	unsigned long	timenow;
+	unsigned long	timenow_us;
 
 	gettimeofday(&time, NULL);
 	usec = time.tv_usec;
 	sec = time.tv_sec;
-	timenow = sec * 1000000 + usec;
+	timenow_us = sec * 1000000 + usec;
 	//printf("sec %ld, usec %ld\n, now %ld", sec, usec, timenow);
-	return (timenow);
+	return (timenow_us / 1000);
 }

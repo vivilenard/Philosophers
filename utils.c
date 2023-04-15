@@ -29,9 +29,9 @@ int	ft_atoi(char *str)
 void	printstate(t_philo *philo, int x)
 {
 	pthread_mutex_lock(&philo->shared->printlock);
-	t_us time;
+	t_ms time;
 
-	time = (clock() - philo->params->starttime) / 1000;
+	time = (clock() - philo->params->starttime);
 	if (x == e_fork)
 		printf("%ld %d has taken a fork\n", time, philo->id);
 	else if (x == e_eat)
@@ -40,5 +40,7 @@ void	printstate(t_philo *philo, int x)
 		printf("%ld %d is sleeping\n", time, philo->id);
 	else if (x == e_think)
 		printf("%ld %d is thinking\n", time, philo->id);
+	else if (x == e_die)
+		printf("%ld %d died\n", time, philo->id);
 	pthread_mutex_unlock(&philo->shared->printlock);
 }

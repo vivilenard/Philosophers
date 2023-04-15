@@ -6,13 +6,13 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:00:35 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/15 13:57:37 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/15 14:56:52 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "existentialism.h"
 
-t_params	*initparams(char **argv, t_us starttime)
+t_params	*initparams(char **argv, t_ms starttime)
 {
 	t_params *params;
 
@@ -24,6 +24,7 @@ t_params	*initparams(char **argv, t_us starttime)
 	params->t_die = ft_atoi(argv[2]);
 	params->t_eat = ft_atoi(argv[3]);
 	params->t_sleep = ft_atoi(argv[4]);
+	printf("n_philos: %d, t_die: %d, t_eat: %d, t_sleep: %d\n", params->n_philos, params->t_die, params->t_eat, params->t_sleep);
 	return (params);
 }
 
@@ -32,7 +33,8 @@ int	init_philo_data(t_philo **philo, t_params *params, t_shared *shared, int i)
 	philo[i]->id = i + 1;
 	philo[i]->params = params;
 	philo[i]->shared = shared;
-	philo[i]->last_eaten = 0;
+	philo[i]->last_eaten = clock();
+	philo[i]->alive = 1;
 	philo[i]->fork = shared->fork[i];
 	if (!shared->fork[i + 1])
 		philo[i]->fork_right = shared->fork[0];
@@ -66,7 +68,7 @@ t_shared	*initshared(t_params *params)
 	return (shared);
 }
 
-t_philo	**initphilos(char **argv, t_us starttime)
+t_philo	**initphilos(char **argv, t_ms starttime)
 {
 	t_philo		**philos;
 	t_params	*params;

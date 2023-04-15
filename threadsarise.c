@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:33:48 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/13 19:20:16 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/15 14:50:03 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	eat(t_philo *philo)
 	pthread_mutex_lock(philo->fork_right);
 	printstate(philo, e_eat);
 	usleep(philo->params->t_eat);
+	philo->last_eaten = clock();
 	pthread_mutex_unlock(philo->fork);
 	pthread_mutex_unlock(philo->fork_right);
 	return (1);
@@ -43,10 +44,12 @@ void	*philo_arise(void *ptr)
 	philo = (t_philo *)ptr;
 	while (1)
 	{
+		if (philo->alive == 0)
+			return (NULL);
 		eat(philo);
 		sleeep(philo);
 		think(philo);
-		break;
+		break ;
 	}
 	return (NULL);
 }
