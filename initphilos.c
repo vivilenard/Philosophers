@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:00:35 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/15 17:34:40 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/16 17:05:18 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ int	init_philo_data(t_philo **philo, t_params *params, t_shared *shared, int i)
 	philo[i]->id = i + 1;
 	philo[i]->params = params;
 	philo[i]->shared = shared;
-	philo[i]->last_eaten = clock();
-	//philo[i]->alive = 1;
+	philo[i]->last_eaten = timestamp(philo[i]);
 	philo[i]->fork = shared->fork[i];
 	if (!shared->fork[i + 1])
 		philo[i]->fork_right = shared->fork[0];
@@ -64,6 +63,8 @@ t_shared	*initshared(t_params *params)
 
 	shared = malloc(sizeof(t_shared));
 	pthread_mutex_init(&shared->printlock, NULL);
+	pthread_mutex_init(&shared->timelock, NULL);
+	pthread_mutex_init(&shared->lock, NULL);
 	set_forks(shared, params);
 	return (shared);
 }

@@ -43,8 +43,10 @@ typedef struct s_params
 
 typedef struct s_shared
 {
+	struct s_params	*params;
 	pthread_mutex_t	printlock;
-	pthread_mutex_t universal;
+	pthread_mutex_t timelock;
+	pthread_mutex_t	lock;
 	pthread_mutex_t	**fork;
 }		t_shared;
 
@@ -57,7 +59,7 @@ int			init_philo_data(t_philo **philo, t_params *params, t_shared *shared, int i
 int			ft_atoi(char *str);
 void		printstate(t_philo *philo, int x);
 t_ms		clock();
-t_ms		timestamp(t_ms starttime);
+t_ms		timestamp(t_philo *philo);
 
 //threadsarise
 void		*philo_arise(void *ptr);
