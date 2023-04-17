@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:00:35 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/17 09:40:32 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/17 21:00:45 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	init_philo_data(t_philo **philo, t_info *info,  int i)
 {
 	philo[i]->info = info;
 	philo[i]->id = i + 1;
-	philo[i]->last_eaten = timestamp(philo[i]);
+	philo[i]->last_meal = timestamp(philo[i]);
 	philo[i]->fork = info->fork[i];
 	if (!info->fork[i + 1])
 		philo[i]->fork_right = info->fork[0];

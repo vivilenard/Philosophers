@@ -24,8 +24,9 @@ typedef struct s_philo
 	int				id;
 	pthread_mutex_t *fork;
 	pthread_mutex_t *fork_right;
-	t_ms			last_eaten;
-	//int				alive;
+	//pthread_mutex_t	check_death;
+	t_ms			last_meal;
+	int				number_meals;
 	pthread_t		tid;
 }		t_philo;
 
@@ -37,6 +38,7 @@ typedef struct s_info
 	int				t_eat;
 	int				t_sleep;
 	int				n_eat;
+	int				n_meals;
 	pthread_mutex_t	**fork;
 	pthread_mutex_t	printlock;
 }		t_info;

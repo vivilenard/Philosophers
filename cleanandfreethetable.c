@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:36:52 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/17 08:46:38 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/17 21:54:56 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,14 @@ int	cleanthetable(t_philo **philos, t_info *info)
 	i = 0;
 	while (i < info->n_philos)
 	{
-		pthread_join(philos[i]->tid, NULL);
-		//printf("joined %d\n", philos[i]->id);
+		pthread_detach(philos[i]->tid);
+		pthread_mutex_destroy(info->fork[i]);
+		free(philos[i]);
 		i++;
 	}
+	pthread_mutex_destroy(&info->printlock);
+	free(info->fork);
+	free(info);
+	free(philos);
 	return (1);
 }

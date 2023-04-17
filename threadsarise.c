@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:33:48 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/17 09:35:08 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/17 22:14:04 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,21 @@ int	eat(t_philo *philo)
 	if (philo->id % 2 > 0)
 	{
 		pthread_mutex_lock(philo->fork_right);
+		printstate(philo, e_fork);
 		pthread_mutex_lock(philo->fork);
+		printstate(philo, e_fork);
 	}
 	else
 	{
 		pthread_mutex_lock(philo->fork);
+		printstate(philo, e_fork);
 		pthread_mutex_lock(philo->fork_right);
+		printstate(philo, e_fork);
 	}
+	philo->last_meal = timestamp(philo);
 	printstate(philo, e_eat);
 	usleep(philo->info->t_eat * 1000);
-	philo->last_eaten = timestamp(philo);
+	philo->number_meals += 1;
 	pthread_mutex_unlock(philo->fork);
 	pthread_mutex_unlock(philo->fork_right);
 	return (1);
@@ -70,7 +75,7 @@ int	cometothetable(t_philo **philos)
 	{
 		if (pthread_create(&philos[i]->tid, NULL, philo_arise, philos[i]) != 0)
 			return (0);
-		usleep(3);
+		usleep(1);
 		i++;
 	}
 	return (1);

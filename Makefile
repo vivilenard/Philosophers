@@ -21,7 +21,7 @@ run4: all
 run5: all
 	./philo 4 310 200 100
 run6: all
-	./philo 4 400 200 200
+	./philo 4 200 200 900
 clean:
 	rm -f $(OBJ)
 fclean: clean

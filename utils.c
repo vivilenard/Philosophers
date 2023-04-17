@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/17 17:59:01 by vlenard           #+#    #+#             */
+/*   Updated: 2023/04/17 21:22:03 by vlenard          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "existentialism.h"
 
 int	ft_atoi(char *str)
@@ -28,37 +40,38 @@ int	ft_atoi(char *str)
 
 void	printstate(t_philo *philo, int x)
 {
-	pthread_mutex_lock(&philo->info->printlock);
-	t_ms time;
+	const char	*state[] = {
+		"has taken a fork",
+		"is eating",
+		"is sleeping",
+		"is thinking",
+		"died"
+	};
 
-	time = timestamp(philo);
-	if (x == e_fork)
-		printf("%ld %d has taken a fork\n", time, philo->id);
-	else if (x == e_eat)
-		printf("%ld %d is eating\n", time, philo->id);
-	else if (x == e_sleep)
-		printf("%ld %d is sleeping\n", time, philo->id);
-	else if (x == e_think)
-		printf("%ld %d is thinking\n", time, philo->id);
-	else if (x == e_die)
-		printf("%ld %d died\n", time, philo->id);
+	if (x < 0 || x > 4)
+		return ;
+	pthread_mutex_lock(&philo->info->printlock);
+	if (x == 1)
+		printf("%ld %d %s\n", philo->last_meal, philo->id, state[x]);
+	else
+		printf("%ld %d %s\n", timestamp(philo), philo->id, state[x]);
 	pthread_mutex_unlock(&philo->info->printlock);
 }
 
-t_ms clock()
+t_ms	clock(void)
 {
-	struct timeval 	time;
-	long 			usec;
-	long 			sec;
+	struct timeval	time;
+	long			usec;
+	long			sec;
 	unsigned long	timenow_us;
 
 	gettimeofday(&time, NULL);
 	usec = time.tv_usec;
 	sec = time.tv_sec;
 	timenow_us = sec * 1000000 + usec;
-	//printf("sec %ld, usec %ld\n, now %ld", sec, usec, timenow);
 	return (timenow_us / 1000);
 }
+	//printf("sec %ld, usec %ld\n, now %ld", sec, usec, timenow);
 
 t_ms	timestamp(t_philo *philo)
 {
