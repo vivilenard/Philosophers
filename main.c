@@ -6,13 +6,13 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:54:18 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/16 17:09:22 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/17 08:45:03 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "existentialism.h"
 
-int	are_we_alive(t_philo **philos, t_params *params)
+int	are_we_alive(t_philo **philos, t_info *info)
 {
 	int	i;
 
@@ -21,7 +21,7 @@ int	are_we_alive(t_philo **philos, t_params *params)
 		i = 0;
 		while (philos[i])
 		{
-			if (timestamp(philos[i]) - philos[i]->last_eaten > (unsigned long)params->t_die)
+			if (timestamp(philos[i]) - philos[i]->last_eaten > (unsigned long)info->t_die)
 			{
 				//printf("clock: %lu, last meal: %lu\n", timestamp(philos[i]), philos[i]->last_eaten);
 				//printf("time since last eaten %lu\n", timestamp(philos[i]) - philos[i]->last_eaten);
@@ -45,35 +45,8 @@ int	main(int argc, char **argv)
 		return (0);
 	if (!cometothetable(philos))
 		return (0);
-	if (!are_we_alive(philos, (*philos)->params))
+	if (!are_we_alive(philos, (*philos)->info))
 		return (0);
-	cleanthetable(philos, (*philos)->params);
+	cleanthetable(philos, (*philos)->info);
 	return (0);
 }
-
-	//pthread_t	master;
-	//pthread_create(&master, NULL, check_if_alive, philos);
-// void	*check_if_alive(void *p)
-// {
-// 	t_philo **philos;
-// 	int		i;
-
-// 	philos = (t_philo **)p;
-// 	while (1)
-// 	{
-// 		i = 0;
-// 		while (philos[i])
-// 		{
-// 			if (clock() - philos[i]->last_eaten > 80)
-// 			{
-// 				printf("clock: %lu, last meal: %lu\n", clock(), philos[i]->last_eaten);
-// 				printf("time since last eaten %lu\n", clock() - philos[i]->last_eaten);
-// 				philos[i]->alive = 0;
-// 				printstate(philos[i], e_die);
-// 				return (NULL);
-// 			}
-// 			i++;
-// 		}
-// 	}
-// 	return (NULL);
-// }

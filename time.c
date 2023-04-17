@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 19:00:22 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/16 15:54:32 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/17 08:47:03 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ t_ms	timestamp(t_philo *philo)
 {
 	t_ms	timestamp;
 
-	pthread_mutex_lock(&philo->shared->timelock);
-	timestamp = clock() - philo->params->starttime;
-	pthread_mutex_unlock(&philo->shared->timelock);
+	timestamp = clock() - philo->info->starttime;
 	return (timestamp);
 }

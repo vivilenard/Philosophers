@@ -28,7 +28,7 @@ int	ft_atoi(char *str)
 
 void	printstate(t_philo *philo, int x)
 {
-	pthread_mutex_lock(&philo->shared->printlock);
+	pthread_mutex_lock(&philo->info->printlock);
 	t_ms time;
 
 	time = timestamp(philo);
@@ -42,5 +42,5 @@ void	printstate(t_philo *philo, int x)
 		printf("%ld %d is thinking\n", time, philo->id);
 	else if (x == e_die)
 		printf("%ld %d died\n", time, philo->id);
-	pthread_mutex_unlock(&philo->shared->printlock);
+	pthread_mutex_unlock(&philo->info->printlock);
 }

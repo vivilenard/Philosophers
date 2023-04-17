@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:33:48 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/16 17:03:37 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/17 08:42:35 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@ int	eat(t_philo *philo)
 	pthread_mutex_lock(philo->fork);
 	pthread_mutex_lock(philo->fork_right);
 	printstate(philo, e_eat);
-	usleep(philo->params->t_eat * 1000); //maybe t_eat
+	usleep(philo->info->t_eat * 1000);
 	philo->last_eaten = timestamp(philo);
-	//pthread_mutex_unlock(&philo->shared->lastmeal_lock);
 	pthread_mutex_unlock(philo->fork);
 	pthread_mutex_unlock(philo->fork_right);
 	return (1);
@@ -29,7 +28,7 @@ int	eat(t_philo *philo)
 int sleeep(t_philo *philo)
 {
 	printstate(philo, e_sleep);
-	usleep(philo->params->t_sleep * 1000);
+	usleep(philo->info->t_sleep * 1000);
 	return (1);
 }
 
