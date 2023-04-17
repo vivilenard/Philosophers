@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:00:35 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/17 09:35:35 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/17 09:40:32 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,13 @@ t_philo	**initphilos(char **argv, t_ms starttime)
 		i++;
 	}
 	philos[i] = NULL;
+	printf("n->philos %d, philoscreated %d, starttime %ld\n", info->n_philos, i, info->starttime);
+	i = 0;
+	while (philos[i])
+	{
+		printf("philo %d id %d\n", i, philos[i]->id);
+		i++;
+	}
 	return (philos);
 }
 
@@ -91,11 +98,3 @@ t_philo	**initphilos(char **argv, t_ms starttime)
 
 
 
-
-	// printf("n->philos %d, philoscreated %d, starttime %ld\n", info->n_philos, i, info->starttime);
-	// i = 0;
-	// while (philos[i])
-	// {
-	// 	printf("philo %d\n", philos[i]->id);
-	// 	i++;
-	// }
