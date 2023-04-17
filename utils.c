@@ -44,3 +44,26 @@ void	printstate(t_philo *philo, int x)
 		printf("%ld %d died\n", time, philo->id);
 	pthread_mutex_unlock(&philo->info->printlock);
 }
+
+t_ms clock()
+{
+	struct timeval 	time;
+	long 			usec;
+	long 			sec;
+	unsigned long	timenow_us;
+
+	gettimeofday(&time, NULL);
+	usec = time.tv_usec;
+	sec = time.tv_sec;
+	timenow_us = sec * 1000000 + usec;
+	//printf("sec %ld, usec %ld\n, now %ld", sec, usec, timenow);
+	return (timenow_us / 1000);
+}
+
+t_ms	timestamp(t_philo *philo)
+{
+	t_ms	timestamp;
+
+	timestamp = clock() - philo->info->starttime;
+	return (timestamp);
+}

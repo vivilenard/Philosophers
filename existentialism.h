@@ -41,15 +41,6 @@ typedef struct s_info
 	pthread_mutex_t	printlock;
 }		t_info;
 
-// typedef struct s_shared
-// {
-// 	struct s_info	*info;
-// 	pthread_mutex_t	printlock;
-// 	pthread_mutex_t timelock;
-// 	pthread_mutex_t	lock;
-// 	pthread_mutex_t	**fork;
-// }		t_shared;
-
 //initphilos
 t_philo		**initphilos(char **argv, t_ms starttime);
 t_info		*initinfo(char **argv, t_ms starttime);
@@ -67,4 +58,8 @@ int			cometothetable(t_philo **philos);
 
 //cleanandfree
 int			cleanthetable(t_philo **philos, t_info *info);
+
+//checker
+int			we_are_alive(t_philo **philos, t_info *info);
+
 #endif

@@ -1,7 +1,7 @@
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 NAME = philo
-SRC = main.c initphilos.c utils.c threadsarise.c cleanandfreethetable.c time.c
+SRC = main.c initstructs.c utils.c threadsarise.c cleanandfreethetable.c
 OBJ = $(SRC:.c=.o)
 ARG = 4 800 200 200 
 
@@ -20,6 +20,8 @@ run4: all
 	./philo 4 410 200 200
 run5: all
 	./philo 4 310 200 100
+run6: all
+	./philo 4 400 200 200
 clean:
 	rm -f $(OBJ)
 fclean: clean
