@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:33:48 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/18 20:41:09 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/18 20:47:00 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,14 @@ void msleep(int ms)
 	// 	usleep(1000);
 	// 	ms--;
 	// }
-	usleep(ms * 1000);
+	//usleep(ms * 1000);
+	t_ms max;
+
+	max = clock() + (t_ms)ms;
+	while (clock() < max)
+	{
+		usleep(100);
+	}
 }
 
 //10 * 1000 = 10000;
