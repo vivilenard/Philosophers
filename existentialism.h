@@ -1,6 +1,14 @@
 # ifndef EXISTENTIALISM_H
 # define EXISTENTIALISM_H
 
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define BLUE "\033[0;34m"
+# define PURPLE "\033[0;35m"
+# define CYAN "\033[0;36m"
+# define WHITE "\033[0;37m"
+
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/time.h>
@@ -8,6 +16,7 @@
 #include <stdlib.h>
 
 typedef unsigned long t_ms;
+typedef unsigned long t_us;
 
 enum philostate
 {
@@ -22,8 +31,8 @@ typedef struct s_philo
 {
 	struct s_info	*info;
 	int				id;
-	pthread_mutex_t *fork;
-	pthread_mutex_t *fork_right;
+	pthread_mutex_t *left_fork;
+	pthread_mutex_t *right_fork;
 	//pthread_mutex_t	check_death;
 	t_ms			last_meal;
 	int				number_meals;

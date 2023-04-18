@@ -10,18 +10,20 @@ $(NAME): $(OBJ)
 	$(CC) $(OBJ) -o philo 
 run: re
 	./philo $(ARG)
-run1: all
+run1: re
 	./philo 1 800 200 200
-run2: all
+run2: re
 	./philo 5 800 200 200
-run3: all
+run3: re
 	./philo 5 800 200 200 7
-run4: all
+run4: re
 	./philo 4 410 200 200
-run5: all
+run5: re
 	./philo 4 310 200 100
-run6: all
+run6: re
 	./philo 4 200 200 900
+run7: re
+	./philo 2 405 200 200
 clean:
 	rm -f $(OBJ)
 fclean: clean

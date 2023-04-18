@@ -6,42 +6,60 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:33:48 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/17 22:14:04 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/18 20:41:09 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "existentialism.h"
 
+void msleep(int ms)
+{
+	// t_us	us;
+	// int		i;
+	
+	// us = ms * 1000;
+	// i = ms;
+	// while (ms)
+	// {
+	// 	usleep(1000);
+	// 	ms--;
+	// }
+	usleep(ms * 1000);
+}
+
+//10 * 1000 = 10000;
 
 int	eat(t_philo *philo)
 {
-	if (philo->id % 2 > 0)
+	if (philo->id % 2 != 0)
 	{
-		pthread_mutex_lock(philo->fork_right);
+		pthread_mutex_lock(philo->right_fork);
 		printstate(philo, e_fork);
-		pthread_mutex_lock(philo->fork);
+		pthread_mutex_lock(philo->left_fork);
 		printstate(philo, e_fork);
 	}
 	else
 	{
-		pthread_mutex_lock(philo->fork);
+		usleep(1);
+		pthread_mutex_lock(philo->left_fork);
 		printstate(philo, e_fork);
-		pthread_mutex_lock(philo->fork_right);
+		pthread_mutex_lock(philo->right_fork);
 		printstate(philo, e_fork);
 	}
 	philo->last_meal = timestamp(philo);
 	printstate(philo, e_eat);
-	usleep(philo->info->t_eat * 1000);
+	msleep(philo->info->t_eat);
+	//usleep(philo->info->t_eat * 1000);
 	philo->number_meals += 1;
-	pthread_mutex_unlock(philo->fork);
-	pthread_mutex_unlock(philo->fork_right);
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
 	return (1);
 }
 
 int sleeep(t_philo *philo)
 {
 	printstate(philo, e_sleep);
-	usleep(philo->info->t_sleep * 1000);
+	msleep(philo->info->t_sleep);
 	return (1);
 }
 

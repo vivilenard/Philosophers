@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:59:01 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/17 21:22:03 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/18 15:23:11 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,21 @@ void	printstate(t_philo *philo, int x)
 		"died"
 	};
 
+	const char	*color[] = {
+		CYAN,
+		RED,
+		PURPLE,
+		BLUE,
+		YELLOW
+	};
+	
 	if (x < 0 || x > 4)
 		return ;
 	pthread_mutex_lock(&philo->info->printlock);
 	if (x == 1)
-		printf("%ld %d %s\n", philo->last_meal, philo->id, state[x]);
+		printf("%s %ld %d %s\n", color[x], philo->last_meal, philo->id, state[x]);
 	else
-		printf("%ld %d %s\n", timestamp(philo), philo->id, state[x]);
+		printf("%s %ld %d %s\n", color[x], timestamp(philo), philo->id, state[x]);
 	pthread_mutex_unlock(&philo->info->printlock);
 }
 
