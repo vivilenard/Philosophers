@@ -33,9 +33,9 @@ typedef struct s_philo
 	int				id;
 	pthread_mutex_t *left_fork;
 	pthread_mutex_t *right_fork;
-	//pthread_mutex_t	check_death;
+	pthread_mutex_t	count_meals;
 	t_ms			last_meal;
-	int				number_meals;
+	int				meals_eaten;
 	pthread_t		tid;
 }		t_philo;
 

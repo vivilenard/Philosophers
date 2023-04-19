@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 11:01:12 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/19 11:35:29 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/19 12:21:20 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ int	eat(t_philo *philo)
 	philo->last_meal = timestamp(philo);
 	printstate(timestamp(philo), philo, e_eat);
 	msleep(philo->info->t_eat);
-	philo->number_meals += 1;
+	pthread_mutex_lock(&philo->count_meals);
+	philo->meals_eaten += 1;
+	pthread_mutex_unlock(&philo->count_meals);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 	return (1);
