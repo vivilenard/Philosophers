@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:59:01 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/18 15:23:11 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/19 11:33:57 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_atoi(char *str)
 	return (res * s);
 }
 
-void	printstate(t_philo *philo, int x)
+void	printstate(t_ms time, t_philo *philo, int x)
 {
 	const char	*state[] = {
 		"has taken a fork",
@@ -47,7 +47,6 @@ void	printstate(t_philo *philo, int x)
 		"is thinking",
 		"died"
 	};
-
 	const char	*color[] = {
 		CYAN,
 		RED,
@@ -55,15 +54,13 @@ void	printstate(t_philo *philo, int x)
 		BLUE,
 		YELLOW
 	};
-	
+
 	if (x < 0 || x > 4)
 		return ;
 	pthread_mutex_lock(&philo->info->printlock);
-	if (x == 1)
-		printf("%s %ld %d %s\n", color[x], philo->last_meal, philo->id, state[x]);
-	else
-		printf("%s %ld %d %s\n", color[x], timestamp(philo), philo->id, state[x]);
-	pthread_mutex_unlock(&philo->info->printlock);
+	printf("%s %ld %d %s\n", color[x], time, philo->id, state[x]);
+	if (x != e_die)
+		pthread_mutex_unlock(&philo->info->printlock);
 }
 
 t_ms	clock(void)
@@ -79,7 +76,6 @@ t_ms	clock(void)
 	timenow_us = sec * 1000000 + usec;
 	return (timenow_us / 1000);
 }
-	//printf("sec %ld, usec %ld\n, now %ld", sec, usec, timenow);
 
 t_ms	timestamp(t_philo *philo)
 {
@@ -87,4 +83,12 @@ t_ms	timestamp(t_philo *philo)
 
 	timestamp = clock() - philo->info->starttime;
 	return (timestamp);
+}
+void msleep(int ms)
+{
+	t_ms max;
+
+	max = clock() + (t_ms)ms;
+	while (clock() < max)
+		usleep(100);
 }

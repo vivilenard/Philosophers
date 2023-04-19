@@ -6,25 +6,36 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:54:18 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/18 15:18:37 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/19 11:39:43 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "existentialism.h"
 
-int	we_are_alive(t_philo **philos, t_info *info)
+int	starved(t_philo *philo)
+{
+	t_ms	time_die;
+
+	time_die = (t_ms)philo->info->t_die;
+	if (timestamp(philo) - philo->last_meal > time_die)
+		return (1);
+	return (0);
+}
+
+int	everything_alright(t_philo **philos)
 {
 	int	i;
 
 	i = 0;
 	while (philos[i])
 	{
-		if (timestamp(philos[i]) - philos[i]->last_meal > (unsigned long)info->t_die)
+		if (starved(philos[i]))
 		{
-			printf("%s, clock: %lu, last meal: %lu\n", YELLOW, timestamp(philos[i]), philos[i]->last_meal);
-			printstate(philos[i], e_die);
+			//printf("%s, clock: %lu, last meal: %lu\n", YELLOW, timestamp(philos[i]), philos[i]->last_meal);
+			printstate(timestamp(philos[i]), philos[i], e_die);
 			return (0);
 		}
+		
 		usleep(3000);
 		i++;
 	}
@@ -42,7 +53,7 @@ int	main(int argc, char **argv)
 		return (0);
 	if (!cometothetable(philos))
 		return (0);
-	while	(we_are_alive(philos, (*philos)->info) == 1)
+	while	(everything_alright(philos))
 		;
 	cleanthetable(philos, (*philos)->info);
 	return (0);
