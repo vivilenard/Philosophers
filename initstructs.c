@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:00:35 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/19 12:20:23 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/19 18:01:20 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_info	*initinfo(char **argv, t_ms starttime)
 	info->t_die = ft_atoi(argv[2]);
 	info->t_eat = ft_atoi(argv[3]);
 	info->t_sleep = ft_atoi(argv[4]);
+	info->finished = 0;
 	if (argv[5])
 		info->n_meals = ft_atoi(argv[5]);
 	else
@@ -53,7 +54,7 @@ void	set_forks(t_info *info)
 	int	i;
 
 	i = 0;
-	info->fork = malloc(sizeof(pthread_mutex_t *) * info->n_philos);
+	info->fork = malloc(sizeof(pthread_mutex_t *) * (info->n_philos + 1));
 	while (i < info->n_philos)
 	{
 		info->fork[i] = malloc(sizeof(pthread_mutex_t));
@@ -81,13 +82,13 @@ t_philo	**initphilos(char **argv, t_ms starttime)
 		i++;
 	}
 	philos[i] = NULL;
-	printf("n->philos %d, philoscreated %d, starttime %ld\n", info->n_philos, i, info->starttime);
-	i = 0;
-	while (philos[i])
-	{
-		printf("philo %d id %d\n", i, philos[i]->id);
-		i++;
-	}
+	// printf("n->philos %d, philoscreated %d, starttime %ld\n", info->n_philos, i, info->starttime);
+	// i = 0;
+	// while (philos[i])
+	// {
+	// 	printf("philo %d id %d\n", i, philos[i]->id);
+	// 	i++;
+	// }
 	return (philos);
 }
 

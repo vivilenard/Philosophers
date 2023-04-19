@@ -48,6 +48,7 @@ typedef struct s_info
 	int				t_sleep;
 	int				n_eat;
 	int				n_meals;
+	int				finished;
 	pthread_mutex_t	**fork;
 	pthread_mutex_t	printlock;
 }		t_info;
@@ -77,7 +78,7 @@ int			cleanthetable(t_philo **philos, t_info *info);
 //utils
 int			ft_atoi(char *str);
 void		printstate(t_ms time, t_philo *philo, int x);
-t_ms		clock();
+t_ms		current_time();
 t_ms		timestamp(t_philo *philo);
 void		msleep(int ms);
 

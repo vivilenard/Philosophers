@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra #-pthread
 NAME = philo
 SRC = main.c initstructs.c utils.c threadsarise.c philo_states.c cleanandfreethetable.c
 OBJ = $(SRC:.c=.o)
@@ -7,7 +7,7 @@ ARG = 4 800 200 200
 
 all: $(NAME)
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -o philo 
+	$(CC) $(OBJ) -o philo -lpthread
 run: re
 	./philo $(ARG)
 run1: re

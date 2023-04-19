@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:59:01 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/19 11:33:57 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/19 18:05:58 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	printstate(t_ms time, t_philo *philo, int x)
 		YELLOW
 	};
 
-	if (x < 0 || x > 4)
+	if (!time || !x || !philo || x < 0 || x > 4)
 		return ;
 	pthread_mutex_lock(&philo->info->printlock);
 	printf("%s %ld %d %s\n", color[x], time, philo->id, state[x]);
@@ -63,7 +63,7 @@ void	printstate(t_ms time, t_philo *philo, int x)
 		pthread_mutex_unlock(&philo->info->printlock);
 }
 
-t_ms	clock(void)
+t_ms	current_time(void)
 {
 	struct timeval	time;
 	long			usec;
@@ -81,14 +81,14 @@ t_ms	timestamp(t_philo *philo)
 {
 	t_ms	timestamp;
 
-	timestamp = clock() - philo->info->starttime;
+	timestamp = current_time() - philo->info->starttime;
 	return (timestamp);
 }
 void msleep(int ms)
 {
 	t_ms max;
 
-	max = clock() + (t_ms)ms;
-	while (clock() < max)
+	max = current_time() + (t_ms)ms;
+	while (current_time() < max)
 		usleep(100);
 }
