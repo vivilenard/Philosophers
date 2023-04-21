@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra  #-fsanitize=address #-fsanitize=thread -g 
 NAME = philo
 SRC = main.c initstructs.c utils.c threadsarise.c philo_states.c cleanandfreethetable.c
 OBJ = $(SRC:.c=.o)
@@ -7,7 +7,7 @@ ARG = 4 800 200 200
 
 all: $(NAME)
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -o philo #-lpthread
+	$(CC) $(OBJ) -o philo #-lpthread #-fsanitize=thread
 run: re
 	./philo $(ARG)
 run1: re
@@ -33,3 +33,20 @@ clean:
 fclean: clean
 	rm -f ./$(NAME)
 re: fclean all
+
+#lpthread
+
+LSANLIB = /LeakSanitizer/liblsan.a
+lsan: CFLAGS += -ILeakSanitizer -Wno-gnu-include-next
+lsan: LINK += -LLeakSanitizer -llsan -lc++
+lsan: fclean $(LSANLIB)
+lsan: all
+$(LSANLIB):
+	@if [ ! -d "LeakSanitizer" ]; then git clone https://github.com/mhahnFr/LeakSanitizer.git; fi
+	@$(MAKE) -C LeakSanitizer
+
+$(LSAN):
+	git clone https://github.com/mhahnFr/LeakSanitizer.git
+
+$(LSANLIB): $(LSAN)
+	$(MAKE) -C LeakSanitizer

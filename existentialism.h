@@ -27,18 +27,6 @@ enum philostate
 	e_die = 4,
 };
 
-typedef struct s_philo
-{
-	struct s_info	*info;
-	int				id;
-	pthread_mutex_t *left_fork;
-	pthread_mutex_t *right_fork;
-	pthread_mutex_t	count_meals;
-	t_ms			last_meal;
-	int				meals_eaten;
-	pthread_t		tid;
-}		t_philo;
-
 typedef struct s_info
 {
 	int				n_philos;
@@ -46,13 +34,26 @@ typedef struct s_info
 	int				t_die;
 	int				t_eat;
 	int				t_sleep;
-	int				n_eat;
+//	int				n_eat;
 	int				n_meals;
 	int				finished;
 	pthread_mutex_t	**fork;
 	pthread_mutex_t	printlock;
 	pthread_mutex_t	check_end;
 }		t_info;
+
+typedef struct s_philo
+{
+	struct s_info	*info;
+	int				id;
+	t_ms			last_meal;
+	int				meals_eaten;
+	pthread_mutex_t *left_fork;
+	pthread_mutex_t *right_fork;
+	pthread_mutex_t	count_meals;
+	pthread_mutex_t	timeofmeal;
+	pthread_t		tid;
+}		t_philo;
 
 //initphilos
 t_philo		**initphilos(char **argv, t_ms starttime);
@@ -63,6 +64,7 @@ void		set_forks(t_info *info);
 //threadsarise
 void		*philo_arise(void *ptr);
 int			cometothetable(t_philo **philos);
+int			keep_going(t_philo *philo);
 
 //states
 int			eat(t_philo *philo);
@@ -78,7 +80,7 @@ int			cleanthetable(t_philo **philos, t_info *info);
 
 //utils
 int			ft_atoi(char *str);
-void		printstate(t_ms time, t_philo *philo, int x);
+int		printstate(t_ms time, t_philo *philo, int x);
 t_ms		current_time();
 t_ms		timestamp(t_philo *philo);
 void		msleep(int ms);

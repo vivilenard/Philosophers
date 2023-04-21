@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:00:35 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/21 10:06:38 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/21 17:14:25 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ t_info	*initinfo(char **argv, t_ms starttime)
 	info->t_die = ft_atoi(argv[2]);
 	info->t_eat = ft_atoi(argv[3]);
 	info->t_sleep = ft_atoi(argv[4]);
-	info->finished = 0;
 	if (argv[5])
 		info->n_meals = ft_atoi(argv[5]);
 	else
 		info->n_meals = -1;
+	info->finished = 0;
 	set_forks(info);
 	pthread_mutex_init(&info->printlock, NULL);
 	pthread_mutex_init(&info->check_end, NULL);
-	printf("n_philos: %d, t_die: %d, t_eat: %d, t_sleep: %d\n", info->n_philos, info->t_die, info->t_eat, info->t_sleep);
+	//printf("n_philos: %d, t_die: %d, t_eat: %d, t_sleep: %d\n", info->n_philos, info->t_die, info->t_eat, info->t_sleep);
 	return (info);
 }
 
@@ -42,11 +42,13 @@ int	init_philo_data(t_philo **philo, t_info *info,  int i)
 	philo[i]->id = i + 1;
 	philo[i]->last_meal = timestamp(philo[i]);
 	philo[i]->left_fork = info->fork[i];
+	philo[i]->meals_eaten = 0;
 	if (!info->fork[i + 1])
 		philo[i]->right_fork = info->fork[0];
 	else
 		philo[i]->right_fork = info->fork[i + 1];
 	pthread_mutex_init(&philo[i]->count_meals, NULL);
+	pthread_mutex_init(&philo[i]->timeofmeal, NULL);
 	return (0);
 }
 

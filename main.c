@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:54:18 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/21 10:17:45 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/21 16:10:48 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ int	starved(t_philo *philo)
 	t_ms	time_die;
 
 	time_die = (t_ms)philo->info->t_die;
+	pthread_mutex_lock(&philo->timeofmeal);
 	if (timestamp(philo) - philo->last_meal > time_die)
-		return (1);
+		return (pthread_mutex_unlock(&philo->timeofmeal), 1);
+		//return (1);
+	pthread_mutex_unlock(&philo->timeofmeal);
 	return (0);
 }
 
@@ -28,7 +31,9 @@ int	everything_alright(t_philo **philos, t_info *info)
 	int	full_stomach;
 
 	i = 0;
-	full_stomach = 1;
+	full_stomach = -1;
+	if (info->n_meals > -1)
+		full_stomach = 1;
 	if (info->n_meals == 0)
 		return (0);
 	while (philos[i])
@@ -41,6 +46,7 @@ int	everything_alright(t_philo **philos, t_info *info)
 			pthread_mutex_lock(&info->check_end);
 			info->finished = 1;
 			pthread_mutex_unlock(&info->check_end);
+			//printf("died %d\n", info->finished);
 			return (0);
 		}
 		pthread_mutex_lock(&philos[i]->count_meals);
@@ -73,12 +79,12 @@ int	main(int argc, char **argv)
 	if (argc < 5 || argc > 6)
 		return (0);
 	philos = initphilos(argv, current_time());
-	printf("%d\n", (*philos)->info->n_meals);
+	//printf("%d\n", (*philos)->info->n_meals);
 	if (!philos)
 		return (0);
 	if (!cometothetable(philos))
 		return (0);
-	while	(everything_alright(philos, (*philos)->info) == 1)
+	while	(everything_alright(philos, (*philos)->info))
 		;
 	cleanthetable(philos, (*philos)->info);
 	return (0);

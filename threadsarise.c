@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:33:48 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/21 10:20:57 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/21 17:13:51 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 
 int	keep_going(t_philo *philo)
 {
+	//printf("keepon %d\n", philo->info->finished);
 	pthread_mutex_lock(&philo->info->check_end);
+		//printf("finished %d\n", philo->info->finished);
 	if (philo->info->finished)
+	{
+		//printf("id %d\n", philo->id);
 		return (pthread_mutex_unlock(&philo->info->check_end), 0);
+	}
 	pthread_mutex_unlock(&philo->info->check_end);
 	return (1);
 }
@@ -31,7 +36,6 @@ void	*philo_arise(void *ptr)
 		eat(philo);
 		sleeep(philo);
 		think(philo);
-		//break ;
 	}
 	return (NULL);
 }

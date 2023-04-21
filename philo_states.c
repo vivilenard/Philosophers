@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 11:01:12 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/19 12:21:20 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/21 17:12:28 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ void	takeforks(t_philo *philo)
 int	eat(t_philo *philo)
 {
 	takeforks(philo);
+	pthread_mutex_lock(&philo->timeofmeal);
 	philo->last_meal = timestamp(philo);
+	pthread_mutex_unlock(&philo->timeofmeal);
 	printstate(timestamp(philo), philo, e_eat);
 	msleep(philo->info->t_eat);
 	pthread_mutex_lock(&philo->count_meals);
