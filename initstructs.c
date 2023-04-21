@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:00:35 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/21 17:59:41 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/21 18:15:08 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_info	*initinfo(char **argv, t_ms starttime)
 {
-	t_info *info;
+	t_info	*info;
 
 	info = malloc(sizeof(t_info));
 	if (!info)
@@ -32,11 +32,11 @@ t_info	*initinfo(char **argv, t_ms starttime)
 	set_forks(info);
 	pthread_mutex_init(&info->printlock, NULL);
 	pthread_mutex_init(&info->check_end, NULL);
-	//printf("n_philos: %d, t_die: %d, t_eat: %d, t_sleep: %d\n", info->n_philos, info->t_die, info->t_eat, info->t_sleep);
 	return (info);
 }
+	//printf("n_philos: %d, t_die: %d, t_eat: %d, t_sleep: %d\n", info->n_philos, info->t_die, info->t_eat, info->t_sleep);
 
-int	init_philo_data(t_philo **philo, t_info *info,  int i)
+int	init_philo_data(t_philo **philo, t_info *info, int i)
 {
 	philo[i]->info = info;
 	philo[i]->id = i + 1;
@@ -87,16 +87,3 @@ t_philo	**initphilos(char **argv, t_ms starttime)
 	philos[i] = NULL;
 	return (philos);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

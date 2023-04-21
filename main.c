@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:54:18 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/21 17:58:03 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/21 18:12:55 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	starved(t_philo *philo)
 	pthread_mutex_lock(&philo->timeofmeal);
 	if (timestamp(philo) - philo->last_meal > time_die)
 		return (pthread_mutex_unlock(&philo->timeofmeal), 1);
-		//return (1);
 	pthread_mutex_unlock(&philo->timeofmeal);
 	return (0);
 }
@@ -74,7 +73,7 @@ int	main(int argc, char **argv)
 		return (0);
 	if (!cometothetable(philos))
 		return (0);
-	while	(everybody_alive(philos, (*philos)->info))
+	while (everybody_alive(philos, (*philos)->info))
 		check_everybody_satisfied((*philos)->info);
 	cleanthetable(philos, (*philos)->info);
 	return (0);

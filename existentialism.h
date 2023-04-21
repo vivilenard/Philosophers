@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   existentialism.h                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/21 18:10:15 by vlenard           #+#    #+#             */
+/*   Updated: 2023/04/21 18:10:16 by vlenard          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 # ifndef EXISTENTIALISM_H
 # define EXISTENTIALISM_H
 
@@ -74,14 +86,17 @@ int 		sleeep(t_philo *philo);
 int			think(t_philo *philo);
 
 //cleanandfree
-int			cleanthetable(t_philo **philos, t_info *info);
+void		cleanthetable(t_philo **philos, t_info *info);
+void		free_stuff(t_philo **philos, t_info *info);
 
 //checker
-//int			we_are_alive(t_philo **philos, t_info *info);
+int			everybody_alive(t_philo **philos, t_info *info);
+int			check_everybody_satisfied(t_info *info);
+int			starved(t_philo *philo);
 
 //utils
 int			ft_atoi(char *str);
-int		printstate(t_ms time, t_philo *philo, int x);
+int			printstate(t_ms time, t_philo *philo, int x);
 t_ms		current_time();
 t_ms		timestamp(t_philo *philo);
 void		msleep(int ms);

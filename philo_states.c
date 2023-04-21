@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 11:01:12 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/21 17:12:28 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/21 18:14:26 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	eat(t_philo *philo)
 	return (1);
 }
 
-int sleeep(t_philo *philo)
+int	sleeep(t_philo *philo)
 {
 	printstate(timestamp(philo), philo, e_sleep);
 	msleep(philo->info->t_sleep);

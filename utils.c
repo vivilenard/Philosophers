@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:59:01 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/21 17:38:00 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/21 18:14:17 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ int	printstate(t_ms time, t_philo *philo, int x)
 		BLUE,
 		YELLOW
 	};
+
 	if (!keep_going(philo))
 		return (0);
 	if (!x || !philo || x < 0 || x > 4)
 		return (0);
 	pthread_mutex_lock(&philo->info->printlock);
 	printf("%s %ld %d %s\n", color[x], time, philo->id, state[x]);
-	//if (x != e_die)
 	pthread_mutex_unlock(&philo->info->printlock);
 	return (1);
 }
@@ -86,9 +86,10 @@ t_ms	timestamp(t_philo *philo)
 	timestamp = current_time() - philo->info->starttime;
 	return (timestamp);
 }
-void msleep(int ms)
+
+void	msleep(int ms)
 {
-	t_ms max;
+	t_ms	max;
 
 	max = current_time() + (t_ms)ms;
 	while (current_time() < max)
