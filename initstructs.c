@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:00:35 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/21 17:14:25 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/21 17:59:41 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ t_info	*initinfo(char **argv, t_ms starttime)
 	info->t_die = ft_atoi(argv[2]);
 	info->t_eat = ft_atoi(argv[3]);
 	info->t_sleep = ft_atoi(argv[4]);
+	info->n_meals = -1;
+	info->full_stomach = -1;
 	if (argv[5])
 		info->n_meals = ft_atoi(argv[5]);
-	else
-		info->n_meals = -1;
 	info->finished = 0;
 	set_forks(info);
 	pthread_mutex_init(&info->printlock, NULL);
@@ -85,13 +85,6 @@ t_philo	**initphilos(char **argv, t_ms starttime)
 		i++;
 	}
 	philos[i] = NULL;
-	// printf("n->philos %d, philoscreated %d, starttime %ld\n", info->n_philos, i, info->starttime);
-	// i = 0;
-	// while (philos[i])
-	// {
-	// 	printf("philo %d id %d\n", i, philos[i]->id);
-	// 	i++;
-	// }
 	return (philos);
 }
 

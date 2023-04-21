@@ -36,6 +36,7 @@ typedef struct s_info
 	int				t_sleep;
 //	int				n_eat;
 	int				n_meals;
+	int				full_stomach;
 	int				finished;
 	pthread_mutex_t	**fork;
 	pthread_mutex_t	printlock;

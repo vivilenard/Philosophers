@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:54:18 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/21 16:10:48 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/21 17:58:03 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,49 +25,40 @@ int	starved(t_philo *philo)
 	return (0);
 }
 
-int	everything_alright(t_philo **philos, t_info *info)
+int	check_everybody_satisfied(t_info *info)
+{
+	if (info->full_stomach == 1)
+	{
+		pthread_mutex_lock(&info->check_end);
+		info->finished = 1;
+		pthread_mutex_unlock(&info->check_end);
+		return (1);
+	}
+	return (0);
+}
+
+int	everybody_alive(t_philo **philos, t_info *info)
 {
 	int	i;
-	int	full_stomach;
 
 	i = 0;
-	full_stomach = -1;
-	if (info->n_meals > -1)
-		full_stomach = 1;
-	if (info->n_meals == 0)
-		return (0);
+	info->full_stomach = 1;
 	while (philos[i])
 	{
 		usleep(3000);
 		if (starved(philos[i]))
 		{
-			//printf("%s, clock: %lu, last meal: %lu\n", YELLOW, timestamp(philos[i]), philos[i]->last_meal);
 			printstate(timestamp(philos[i]), philos[i], e_die);
 			pthread_mutex_lock(&info->check_end);
 			info->finished = 1;
 			pthread_mutex_unlock(&info->check_end);
-			//printf("died %d\n", info->finished);
 			return (0);
 		}
 		pthread_mutex_lock(&philos[i]->count_meals);
 		if (info->n_meals > -1 && philos[i]->meals_eaten < info->n_meals)
-			full_stomach = -1;
+			info->full_stomach = -1;
 		pthread_mutex_unlock(&philos[i]->count_meals);
 		i++;
-	}
-	if (full_stomach == 1)
-	{
-		// printf("full\n");
-		// i = 0;
-		// while (philos[i])
-		// {
-		// 	printf("%d, meals %d\n", philos[i]->id, philos[i]->meals_eaten);
-		// 	i++;
-		// }
-		pthread_mutex_lock(&info->check_end);
-		info->finished = 1;
-		pthread_mutex_unlock(&info->check_end);
-		return (0);
 	}
 	return (1);
 }
@@ -79,13 +70,12 @@ int	main(int argc, char **argv)
 	if (argc < 5 || argc > 6)
 		return (0);
 	philos = initphilos(argv, current_time());
-	//printf("%d\n", (*philos)->info->n_meals);
 	if (!philos)
 		return (0);
 	if (!cometothetable(philos))
 		return (0);
-	while	(everything_alright(philos, (*philos)->info))
-		;
+	while	(everybody_alive(philos, (*philos)->info))
+		check_everybody_satisfied((*philos)->info);
 	cleanthetable(philos, (*philos)->info);
 	return (0);
 }

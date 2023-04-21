@@ -49,4 +49,5 @@ $(LSAN):
 	git clone https://github.com/mhahnFr/LeakSanitizer.git
 
 $(LSANLIB): $(LSAN)
-	$(MAKE) -C LeakSanitizer
+	$(MAKE) -C LeakSanitizer3
+	
