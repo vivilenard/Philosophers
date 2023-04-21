@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:10:15 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/21 18:10:16 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/21 18:25:44 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int			keep_going(t_philo *philo);
 
 //states
 int			eat(t_philo *philo);
-void		takeforks(t_philo *philo);
+int			takeforks(t_philo *philo);
 int 		sleeep(t_philo *philo);
 int			think(t_philo *philo);
 

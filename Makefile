@@ -1,7 +1,7 @@
 CC = cc
 CFLAGS = -Wall -Werror -Wextra  #-fsanitize=address #-fsanitize=thread -g 
 NAME = philo
-SRC = main.c initstructs.c utils.c threadsarise.c philo_states.c cleanandfreethetable.c
+SRC = main.c initstructs.c utils.c threadsarise.c philo_states.c freethetable.c
 OBJ = $(SRC:.c=.o)
 ARG = 4 800 200 200 
 

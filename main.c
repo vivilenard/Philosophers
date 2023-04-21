@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:54:18 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/21 18:12:55 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/21 18:17:23 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	main(int argc, char **argv)
 
 	if (argc < 5 || argc > 6)
 		return (0);
+	//need more secure parsing
 	philos = initphilos(argv, current_time());
 	if (!philos)
 		return (0);
