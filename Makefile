@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Werror -Wextra #-pthread
+CFLAGS = -Wall -Werror -Wextra -fsanitize=thread
 NAME = philo
 SRC = main.c initstructs.c utils.c threadsarise.c philo_states.c cleanandfreethetable.c
 OBJ = $(SRC:.c=.o)
@@ -7,7 +7,7 @@ ARG = 4 800 200 200
 
 all: $(NAME)
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -o philo -lpthread
+	$(CC) $(OBJ) -o philo #-lpthread
 run: re
 	./philo $(ARG)
 run1: re
@@ -24,6 +24,10 @@ run6: re
 	./philo 4 200 200 900
 run7: re
 	./philo 20 105 50 60
+run8: re
+	./philo 20 25 10 10
+run9: re
+	./philo 5 800 200 200 2
 clean:
 	rm -f $(OBJ)
 fclean: clean

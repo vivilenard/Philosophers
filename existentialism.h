@@ -51,6 +51,7 @@ typedef struct s_info
 	int				finished;
 	pthread_mutex_t	**fork;
 	pthread_mutex_t	printlock;
+	pthread_mutex_t	check_end;
 }		t_info;
 
 //initphilos

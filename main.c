@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:54:18 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/19 18:09:27 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/21 10:17:45 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	everything_alright(t_philo **philos, t_info *info)
 	int	full_stomach;
 
 	i = 0;
-	full_stomach = 99;
+	full_stomach = 1;
 	if (info->n_meals == 0)
 		return (0);
 	while (philos[i])
@@ -38,7 +38,9 @@ int	everything_alright(t_philo **philos, t_info *info)
 		{
 			//printf("%s, clock: %lu, last meal: %lu\n", YELLOW, timestamp(philos[i]), philos[i]->last_meal);
 			printstate(timestamp(philos[i]), philos[i], e_die);
+			pthread_mutex_lock(&info->check_end);
 			info->finished = 1;
+			pthread_mutex_unlock(&info->check_end);
 			return (0);
 		}
 		pthread_mutex_lock(&philos[i]->count_meals);
@@ -56,7 +58,9 @@ int	everything_alright(t_philo **philos, t_info *info)
 		// 	printf("%d, meals %d\n", philos[i]->id, philos[i]->meals_eaten);
 		// 	i++;
 		// }
+		pthread_mutex_lock(&info->check_end);
 		info->finished = 1;
+		pthread_mutex_unlock(&info->check_end);
 		return (0);
 	}
 	return (1);
@@ -69,7 +73,7 @@ int	main(int argc, char **argv)
 	if (argc < 5 || argc > 6)
 		return (0);
 	philos = initphilos(argv, current_time());
-	//printf("%d\n", (*philos)->info->n_meals);
+	printf("%d\n", (*philos)->info->n_meals);
 	if (!philos)
 		return (0);
 	if (!cometothetable(philos))

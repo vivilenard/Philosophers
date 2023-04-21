@@ -6,18 +6,27 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 18:33:48 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/19 11:00:58 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/21 10:20:57 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "existentialism.h"
+
+int	keep_going(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->info->check_end);
+	if (philo->info->finished)
+		return (pthread_mutex_unlock(&philo->info->check_end), 0);
+	pthread_mutex_unlock(&philo->info->check_end);
+	return (1);
+}
 
 void	*philo_arise(void *ptr)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)ptr;
-	while (1)
+	while (keep_going(philo))
 	{
 		eat(philo);
 		sleeep(philo);
