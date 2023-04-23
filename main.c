@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:54:18 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/23 14:06:33 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/23 16:13:22 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,11 @@ int	main(int argc, char **argv)
 	if (!cometothetable(philos))
 		return (0);
 	while (everybody_alive(philos, (*philos)->info))
-		check_everybody_satisfied((*philos)->info);
+	{
+		if (!check_everybody_satisfied((*philos)->info))
+			break ;
+		//usleep (100);
+	}
 	cleanthetable(philos, (*philos)->info);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 11:01:12 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/23 14:05:58 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/23 17:40:46 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,12 @@ int	takeforks(t_philo *philo)
 
 void	count_meals(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->count_meals);
-	philo->meals_eaten += 1;
-	pthread_mutex_unlock(&philo->count_meals);
+	if (philo->info->n_meals)
+	{
+		pthread_mutex_lock(&philo->count_meals);
+		philo->meals_eaten += 1;
+		pthread_mutex_unlock(&philo->count_meals);
+	}
 }
 
 int	eat(t_philo *philo)
@@ -48,10 +51,13 @@ int	eat(t_philo *philo)
 	pthread_mutex_lock(&philo->timeofmeal);
 	philo->last_meal = timestamp(philo);
 	pthread_mutex_unlock(&philo->timeofmeal);
-	printstate(philo->last_meal, philo, e_eat);
+	if (!printstate(philo->last_meal, philo, e_eat))
+		return (0);
 	msleep(philo->info->t_eat);
+	count_meals(philo);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
+	//printf("if %d, n_meals %d, meals eaten %d\n", philo->id, philo->info->n_meals, philo->meals_eaten);
 	return (1);
 }
 
@@ -65,13 +71,15 @@ int	sleeep(t_philo *philo)
 		if (sleeptime + philo->info->t_eat > philo->info->t_die)
 			return (0);
 	}
-	printstate(timestamp(philo), philo, e_sleep);
-	msleep(philo->info->t_sleep);
+	if (!printstate(timestamp(philo), philo, e_sleep))
+		return (0);
+	msleep(sleeptime);
 	return (1);
 }
 
 int	think(t_philo *philo)
 {
-	printstate(timestamp(philo), philo, e_think);
+	if (!printstate(timestamp(philo), philo, e_think))
+		return (0);
 	return (1);
 }

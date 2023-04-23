@@ -1,13 +1,13 @@
 CC = cc
-CFLAGS = -Wall -Werror -Wextra  #-fsanitize=address #-fsanitize=thread -g 
+CFLAGS = -Wall -Werror -Wextra  -fsanitize=thread -g 
 NAME = philo
-SRC = main.c checker.c initstructs.c utils.c threadsarise.c philo_states.c freethetable.c
+SRC = main.c time.c checker.c initstructs.c utils.c threadsarise.c philo_states.c freethetable.c
 OBJ = $(SRC:.c=.o)
 ARG = 4 800 200 200 
 
 all: $(NAME)
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -o philo #-lpthread #-fsanitize=thread
+	$(CC) $(OBJ) -o philo -fsanitize=thread #-lpthread
 run: re
 	./philo $(ARG)
 run1: re
@@ -25,9 +25,9 @@ run6: re
 run7: re
 	./philo 20 109 50 60
 run8: re
-	./philo 20 25 10 10
+	./philo 20 18 10 10
 run9: re
-	./philo 5 800 200 200 2
+	./philo 5 200 50 50 2
 clean:
 	rm -f $(OBJ)
 fclean: clean
