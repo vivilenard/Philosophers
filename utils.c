@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:59:01 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/23 17:54:21 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/23 18:04:32 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	keep_going(t_philo *philo)
 	pthread_mutex_unlock(&philo->info->check_end);
 	return (1);
 }
-	//if_die_finish(philo, x);
 
 int	printstate(t_ms time, t_philo *philo, int x)
 {

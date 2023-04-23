@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 11:01:12 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/23 17:40:46 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/23 18:04:04 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	eat(t_philo *philo)
 	count_meals(philo);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
-	//printf("if %d, n_meals %d, meals eaten %d\n", philo->id, philo->info->n_meals, philo->meals_eaten);
 	return (1);
 }
 

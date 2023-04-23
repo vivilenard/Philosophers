@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:54:18 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/23 16:13:22 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/23 18:03:20 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	check_input(int argc, char **argv)
 		}
 		i++;
 	}
+	if (ft_atoi(argv[1]) == 0)
+		return (0);
 	return (1);
 }
 
@@ -63,7 +65,6 @@ int	main(int argc, char **argv)
 	{
 		if (!check_everybody_satisfied((*philos)->info))
 			break ;
-		//usleep (100);
 	}
 	cleanthetable(philos, (*philos)->info);
 	return (0);

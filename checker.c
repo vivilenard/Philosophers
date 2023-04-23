@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 12:56:31 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/23 17:54:36 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/23 18:03:48 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ int	check_everybody_satisfied(t_info *info)
 	if (info->full_stomach == 1)
 	{
 		info->finished = 1;
-		pthread_mutex_unlock(&info->check_end);
-		return (0);
+		return (pthread_mutex_unlock(&info->check_end), 0);
 	}
 	pthread_mutex_unlock(&info->check_end);
 	return (1);
