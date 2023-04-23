@@ -6,57 +6,43 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:54:18 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/21 18:17:23 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/23 14:06:33 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "existentialism.h"
 
-int	starved(t_philo *philo)
+void	errormsg(void)
 {
-	t_ms	time_die;
-
-	time_die = (t_ms)philo->info->t_die;
-	pthread_mutex_lock(&philo->timeofmeal);
-	if (timestamp(philo) - philo->last_meal > time_die)
-		return (pthread_mutex_unlock(&philo->timeofmeal), 1);
-	pthread_mutex_unlock(&philo->timeofmeal);
-	return (0);
+	printf("\nPlease enter four parameters:\n");
+	printf("'Number of philos' , 'time to die', ");
+	printf("'time to eat' and 'time to sleep'\n");
+	printf("\t+ optional: 'Number of times each philo must eat'\n");
+	printf("time is interpreted in [ms]\n");
 }
 
-int	check_everybody_satisfied(t_info *info)
-{
-	if (info->full_stomach == 1)
-	{
-		pthread_mutex_lock(&info->check_end);
-		info->finished = 1;
-		pthread_mutex_unlock(&info->check_end);
-		return (1);
-	}
-	return (0);
-}
-
-int	everybody_alive(t_philo **philos, t_info *info)
+int	check_input(int argc, char **argv)
 {
 	int	i;
+	int	n;
 
-	i = 0;
-	info->full_stomach = 1;
-	while (philos[i])
+	if (argc < 5 || argc > 6)
+		return (errormsg(), 0);
+	i = 1;
+	while (argv[i])
 	{
-		usleep(3000);
-		if (starved(philos[i]))
+		n = 0;
+		while (argv[i][n])
 		{
-			printstate(timestamp(philos[i]), philos[i], e_die);
-			pthread_mutex_lock(&info->check_end);
-			info->finished = 1;
-			pthread_mutex_unlock(&info->check_end);
-			return (0);
+			if (argv[i][n] < '0' || argv[i][n] > '9')
+				return (errormsg(), 0);
+			if (ft_atoi(argv[i]) < 0)
+			{
+				printf("\nOnly positive integers allowed\n");
+				return (errormsg(), 0);
+			}
+			n++;
 		}
-		pthread_mutex_lock(&philos[i]->count_meals);
-		if (info->n_meals > -1 && philos[i]->meals_eaten < info->n_meals)
-			info->full_stomach = -1;
-		pthread_mutex_unlock(&philos[i]->count_meals);
 		i++;
 	}
 	return (1);
@@ -66,9 +52,8 @@ int	main(int argc, char **argv)
 {
 	t_philo		**philos;
 
-	if (argc < 5 || argc > 6)
+	if (!check_input(argc, argv))
 		return (0);
-	//need more secure parsing
 	philos = initphilos(argv, current_time());
 	if (!philos)
 		return (0);

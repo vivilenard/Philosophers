@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:00:35 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/21 18:15:08 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/23 14:06:20 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ t_info	*initinfo(char **argv, t_ms starttime)
 	pthread_mutex_init(&info->check_end, NULL);
 	return (info);
 }
-	//printf("n_philos: %d, t_die: %d, t_eat: %d, t_sleep: %d\n", info->n_philos, info->t_die, info->t_eat, info->t_sleep);
 
 int	init_philo_data(t_philo **philo, t_info *info, int i)
 {

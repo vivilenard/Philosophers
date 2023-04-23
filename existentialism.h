@@ -6,11 +6,11 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:10:15 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/21 18:25:44 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/23 14:08:04 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef EXISTENTIALISM_H
+#ifndef EXISTENTIALISM_H
 # define EXISTENTIALISM_H
 
 # define RED "\033[0;31m"
@@ -21,16 +21,16 @@
 # define CYAN "\033[0;36m"
 # define WHITE "\033[0;37m"
 
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/time.h>
-#include <pthread.h>
-#include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <sys/time.h>
+# include <pthread.h>
+# include <stdlib.h>
 
-typedef unsigned long t_ms;
-typedef unsigned long t_us;
+typedef unsigned long	t_ms;
+typedef unsigned long	t_us;
 
-enum philostate
+enum e_philostate
 {
 	e_fork = 0,
 	e_eat = 1,
@@ -46,7 +46,6 @@ typedef struct s_info
 	int				t_die;
 	int				t_eat;
 	int				t_sleep;
-//	int				n_eat;
 	int				n_meals;
 	int				full_stomach;
 	int				finished;
@@ -61,8 +60,8 @@ typedef struct s_philo
 	int				id;
 	t_ms			last_meal;
 	int				meals_eaten;
-	pthread_mutex_t *left_fork;
-	pthread_mutex_t *right_fork;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	count_meals;
 	pthread_mutex_t	timeofmeal;
 	pthread_t		tid;
@@ -82,7 +81,7 @@ int			keep_going(t_philo *philo);
 //states
 int			eat(t_philo *philo);
 int			takeforks(t_philo *philo);
-int 		sleeep(t_philo *philo);
+int			sleeep(t_philo *philo);
 int			think(t_philo *philo);
 
 //cleanandfree
@@ -97,7 +96,7 @@ int			starved(t_philo *philo);
 //utils
 int			ft_atoi(char *str);
 int			printstate(t_ms time, t_philo *philo, int x);
-t_ms		current_time();
+t_ms		current_time(void);
 t_ms		timestamp(t_philo *philo);
 void		msleep(int ms);
 
