@@ -7,7 +7,7 @@ ARG = 4 800 200 200
 
 all: $(NAME)
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -o philo #-fsanitize=thread #-lpthread
+	$(CC) $(OBJ) -o philo -lpthread #-fsanitize=thread #-lpthread
 run: re
 	./philo $(ARG)
 run1: re
@@ -25,7 +25,7 @@ run6: re
 run7: re
 	./philo 20 109 50 60
 run8: re
-	./philo 20 21 10 10
+	./philo 3 20 10 10
 run9: re
 	./philo 5 200 50 50 2
 clean:

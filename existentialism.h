@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 18:10:15 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/23 15:20:57 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/24 13:24:34 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define PURPLE "\033[0;35m"
 # define CYAN "\033[0;36m"
 # define WHITE "\033[0;37m"
+# define MAX_INT 2147483647
 
 # include <stdio.h>
 # include <unistd.h>
@@ -95,7 +96,11 @@ int			starved(t_philo *philo);
 
 //utils
 int			ft_atoi(char *str);
+long int	ft_atol(char *str);
 int			printstate(t_ms time, t_philo *philo, int x);
+void		count_meals(t_philo *philo);
+
+//time
 t_ms		current_time(void);
 t_ms		timestamp(t_philo *philo);
 void		msleep(int ms);

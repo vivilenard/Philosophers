@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 11:01:12 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/23 18:04:04 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/24 12:55:27 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 int	takeforks(t_philo *philo)
 {
-	if (philo->left_fork == philo->right_fork)
-		return (printstate(timestamp(philo), philo, e_die), 0);
 	if (philo->id % 2 != 0)
 	{
 		pthread_mutex_lock(philo->right_fork);
 		printstate(timestamp(philo), philo, e_fork);
+		if (philo->info->n_philos == 1)
+		{
+			msleep(philo->info->t_die);
+			pthread_mutex_unlock(philo->right_fork);
+			return (printstate(timestamp(philo), philo, e_die), 0);
+		}
 		pthread_mutex_lock(philo->left_fork);
 		printstate(timestamp(philo), philo, e_fork);
 	}
@@ -34,14 +38,10 @@ int	takeforks(t_philo *philo)
 	return (1);
 }
 
-void	count_meals(t_philo *philo)
+void	unlock_forks(t_philo *philo)
 {
-	if (philo->info->n_meals)
-	{
-		pthread_mutex_lock(&philo->count_meals);
-		philo->meals_eaten += 1;
-		pthread_mutex_unlock(&philo->count_meals);
-	}
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
 }
 
 int	eat(t_philo *philo)
@@ -52,11 +52,10 @@ int	eat(t_philo *philo)
 	philo->last_meal = timestamp(philo);
 	pthread_mutex_unlock(&philo->timeofmeal);
 	if (!printstate(philo->last_meal, philo, e_eat))
-		return (0);
+		return (unlock_forks(philo), 0);
 	msleep(philo->info->t_eat);
 	count_meals(philo);
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
+	unlock_forks(philo);
 	return (1);
 }
 

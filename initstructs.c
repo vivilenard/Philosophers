@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:00:35 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/23 14:06:20 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/24 13:33:38 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ t_philo	**initphilos(char **argv, t_ms starttime)
 	t_info		*info;
 	int			i;
 
+	if (ft_atoi(argv[1]) > 500)
+		return (printf("There are only 500 chairs. Try again\n"), NULL);
 	info = initinfo(argv, starttime);
 	philos = malloc (sizeof(t_philo *) * (info->n_philos + 1));
 	if (!philos || !info)

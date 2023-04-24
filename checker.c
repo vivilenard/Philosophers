@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 12:56:31 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/23 18:03:48 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/24 13:06:22 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	check_everybody_satisfied(t_info *info)
 		return (pthread_mutex_unlock(&info->check_end), 0);
 	}
 	pthread_mutex_unlock(&info->check_end);
+	usleep (10);
 	return (1);
 }
 

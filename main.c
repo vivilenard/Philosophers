@@ -6,7 +6,7 @@
 /*   By: vlenard <vlenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 15:54:18 by vlenard           #+#    #+#             */
-/*   Updated: 2023/04/23 18:03:20 by vlenard          ###   ########.fr       */
+/*   Updated: 2023/04/24 13:31:42 by vlenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,25 @@ int	check_input(int argc, char **argv)
 
 	if (argc < 5 || argc > 6)
 		return (errormsg(), 0);
+	if (ft_atoi(argv[1]) == 0 || (argv[5] && ft_atoi(argv[5]) == 0))
+		return (0);
 	i = 1;
 	while (argv[i])
 	{
 		n = 0;
+		if (ft_atoi(argv[i]) < 0 || ft_atol(argv[i]) > MAX_INT)
+		{
+			printf("\nOnly positive integers allowed\n");
+			return (errormsg(), 0);
+		}
 		while (argv[i][n])
 		{
 			if (argv[i][n] < '0' || argv[i][n] > '9')
 				return (errormsg(), 0);
-			if (ft_atoi(argv[i]) < 0)
-			{
-				printf("\nOnly positive integers allowed\n");
-				return (errormsg(), 0);
-			}
 			n++;
 		}
 		i++;
 	}
-	if (ft_atoi(argv[1]) == 0)
-		return (0);
 	return (1);
 }
 
